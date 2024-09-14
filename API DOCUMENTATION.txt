@@ -1,0 +1,440 @@
+openapi: 3.0.1
+info:
+  title: Comprehensive API
+  description: Documentation for User, Service Provider, Order, and Admin Services
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Local server
+
+paths:
+  /users/add:
+    post:
+      summary: Add a new user
+      requestBody:
+        description: User object to add
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: User added successfully
+
+  /users/get/{uid}:
+    get:
+      summary: Get user by UID
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User details fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+
+  /users/update/{uid}:
+    put:
+      summary: Update user by UID
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Updated user object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: User updated successfully
+
+  /users/delete/{uid}:
+    delete:
+      summary: Delete user by UID
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User deleted successfully
+
+  /users/getall:
+    get:
+      summary: Get all users
+      responses:
+        '200':
+          description: List of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+  /providers:
+    post:
+      summary: Add a new service provider
+      requestBody:
+        description: Service Provider object to add
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceProvider'
+      responses:
+        '200':
+          description: Service provider added successfully
+
+  /providers/changestatus/{sid}:
+    put:
+      summary: Change status of service provider by SID
+      parameters:
+        - in: path
+          name: sid
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Status update object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceProviderStatus'
+      responses:
+        '200':
+          description: Status updated successfully
+
+  /providers/{sid}:
+    get:
+      summary: Get service provider by SID
+      parameters:
+        - in: path
+          name: sid
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Service provider details fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceProvider'
+
+    put:
+      summary: Update service provider by SID
+      parameters:
+        - in: path
+          name: sid
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Updated service provider object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceProvider'
+      responses:
+        '200':
+          description: Service provider updated successfully
+
+    delete:
+      summary: Delete service provider by SID
+      parameters:
+        - in: path
+          name: sid
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Service provider deleted successfully
+
+  /providers/city/{city}:
+    get:
+      summary: Get service providers by city
+      parameters:
+        - in: path
+          name: city
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of service providers in the city
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ServiceProvider'
+
+  /providers/plumbers:
+    get:
+      summary: Get list of plumbers
+      responses:
+        '200':
+          description: List of plumbers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ServiceProvider'
+
+  /providers/carpenters:
+    get:
+      summary: Get list of carpenters
+      responses:
+        '200':
+          description: List of carpenters
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ServiceProvider'
+
+  /providers/tutors:
+    get:
+      summary: Get list of tutors
+      responses:
+        '200':
+          description: List of tutors
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ServiceProvider'
+
+  /providers/electricians:
+    get:
+      summary: Get list of electricians
+      responses:
+        '200':
+          description: List of electricians
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ServiceProvider'
+
+  /providers/saloon:
+    get:
+      summary: Get list of saloon services
+      responses:
+        '200':
+          description: List of saloon services
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ServiceProvider'
+
+  /orders/postorder/{uid}/{sid}:
+    post:
+      summary: Post a new order for a service provider
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: sid
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Order details
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+      responses:
+        '200':
+          description: Order posted successfully
+
+  /orders/getorders:
+    get:
+      summary: Get all orders
+      responses:
+        '200':
+          description: List of orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+
+  /orders/getordersbystatus/{status}:
+    get:
+      summary: Get orders by status
+      parameters:
+        - in: path
+          name: status
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of orders by status
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+
+  /admin/addadmin:
+    post:
+      summary: Add a new admin
+      requestBody:
+        description: Admin object to add
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Admin'
+      responses:
+        '200':
+          description: Admin added successfully
+
+  /admin/getalladmin:
+    get:
+      summary: Get all admins
+      responses:
+        '200':
+          description: List of admins
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Admin'
+
+  /admin/validate/{email}/{password}:
+    get:
+      summary: Validate admin by email and password
+      parameters:
+        - in: path
+          name: email
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: password
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Admin validated successfully
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        uid:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        address:
+          type: string
+        contact:
+          type: string
+        profileImg:
+          type: string
+
+    ServiceProvider:
+      type: object
+      properties:
+        uid:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        address:
+          type: string
+        contact:
+          type: string
+        profileImg:
+          type: string
+        serviceType:
+          type: string
+        city:
+          type: string
+        rating:
+          type: integer
+        experience:
+          type: string
+        serviceCost:
+          type: integer
+        description:
+          type: string
+        working:
+          type: string
+        status:
+          type: string
+
+    ServiceProviderStatus:
+      type: object
+      properties:
+        status:
+          type: string
+
+    Order:
+      type: object
+      properties:
+        uid:
+          type: string
+        sid:
+          type: string
+        status:
+          type: string
+        orderDetails:
+          type: string
+        cost:
+          type: integer
+
+    Admin:
+      type: object
+      properties:
+        aid:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
