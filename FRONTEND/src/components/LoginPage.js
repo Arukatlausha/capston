@@ -143,7 +143,7 @@ const LoginPage = () => {
 
   return (
     <>
-      <MainNavbar />
+      {/* <MainNavbar /> */}
       <div className="flex min-h-screen bg-white">
         {/* Left side with image and quote */}
         <div className="hidden lg:flex lg:w-1/2 bg-gray-100 flex-col justify-center items-center p-12">

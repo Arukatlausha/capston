@@ -74,6 +74,7 @@ import Navbar2 from './navbars/Navbar2';
 import ServiceCard from './components/ServiceCard';
 import OrderDetailsSP from './components/OrderDetailsSP';
 import ProfileSP from './components/ProfileSP';
+import Landing from './components/landing';
 
 function App() {
   const [activeCategory, setActiveCategory] = useState('');
@@ -95,7 +96,7 @@ function App() {
       )} */}
       <Routes>
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<UserSignUp />} />
         <Route path="/register" element={<ServiceProviderSignUp />} />
         <Route path="/orders" element={<OrderDetails />} />
@@ -109,6 +110,7 @@ function App() {
         <Route path="/nav" element={<MainNavbar />} />
         <Route path="/sppage" element={<OrderDetailsSP />} />
         <Route path="/spprofile" element={<ProfileSP />}/>
+        <Route path="/" element={<Landing/>}/>
       </Routes>
     </div>
   );
